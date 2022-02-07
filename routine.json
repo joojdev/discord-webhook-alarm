@@ -1,0 +1,54 @@
+{
+  "days": [
+    {
+      "day": 0,
+      "appointments": []
+    },
+    {
+      "day": 1,
+      "appointments": [
+        {
+          "hour": 15,
+          "minute": 58,
+          "name": "i"
+        },
+        {
+          "hour": 15,
+          "minute": 59,
+          "name": "love"
+        },
+        {
+          "hour": 16,
+          "minute": 1,
+          "name": "banana"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "appointments": [
+        {
+          "hour": 0,
+          "minute": 10,
+          "name": "foi!"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "appointments": []
+    },
+    {
+      "day": 4,
+      "appointments": []
+    },
+    {
+      "day": 5,
+      "appointments": []
+    },
+    {
+      "day": 6,
+      "appointments": []
+    }
+  ]
+}
