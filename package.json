@@ -1,0 +1,34 @@
+{
+  "name": "discord-webhook-alarm",
+  "version": "1.0.0",
+  "description": "It works like a normal alarm, but it warns you on your Discord Server.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joojdev/discord-webhook-alarm.git"
+  },
+  "keywords": [
+    "alarm",
+    "nodejs",
+    "discord",
+    "webhook"
+  ],
+  "author": "joojdev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joojdev/discord-webhook-alarm/issues"
+  },
+  "homepage": "https://github.com/joojdev/discord-webhook-alarm#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "simple-json-db": "^1.2.3",
+    "superagent": "^7.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
