@@ -1,4 +1,7 @@
+require('dotenv').config()
+
 const JSONdb = require('simple-json-db')
+const { WebhookClient } = require('discord.js')
 const { logInfo } = require('./utils.js')
 const routineDatabase = new JSONdb('./routine.json', {
   jsonSpaces: 2
@@ -8,6 +11,25 @@ const cacheDatabase = new JSONdb('./cache.json', {
 })
 cacheDatabase.set('appointments', [])
 cacheDatabase.set('day', null)
+
+const ExpressServer = require('./type/ExpressServer.js')
+const server = new ExpressServer(3000)
+
+server.registerRoute('get', '/hello', (request, response) => {
+  response.json({ message: 'Hello, World!' })
+})
+
+server.listen()
+
+const webhookClient = new WebhookClient({ url: process.env.WEBHOOK_URL })
+
+function pad(number, size) {
+  const numberString = String(number)
+  if (numberString.length >= size) return numberString
+  const numberArray = Array({ length: size - numberString.length }).map((_) => '0')
+  numberArray.push(numberString)
+  return numberArray.join``
+}
 
 function getCurrentAppointments() {
   const days = routineDatabase.get('days')
@@ -64,13 +86,19 @@ async function start() {
   async function waitForAppointment() {
     await wait(1000 * 60)
     
-    const lateAppointments = getLateAppointments(cacheDatabase.get('appointments')).map((appointmentInfo) => appointmentInfo.name)
+    const lateAppointments = getLateAppointments(cacheDatabase.get('appointments'))
     
-    const newAppointments = cacheDatabase.get('appointments').filter((appointmentInfo) => !lateAppointments.includes(appointmentInfo.name))
+    const lateAppointmentsNameArray = lateAppointments.map((appointmentInfo) => appointmentInfo.name)
+    const newAppointments = cacheDatabase.get('appointments').filter((appointmentInfo) => !lateAppointmentsNameArray.includes(appointmentInfo.name))
     cacheDatabase.set('appointments', newAppointments)
 
     for (const appointment of lateAppointments) {
-      logInfo(`Alarm ${appointment} is late!`)
+      webhookClient.send([
+        '**ATENÇÃO!**',
+        `Alarme **${appointment.name}**! *${pad(appointment.hour, 2)}:${pad(appointment.minute, 2)}*`,
+        `<@&${process.env.ROLE}>`
+      ].join`\n`)
+      logInfo(`Alarm ${appointment.name} is late!`)
     }
 
     logInfo('Appointments verified!')
