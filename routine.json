@@ -8,19 +8,9 @@
       "day": 1,
       "appointments": [
         {
-          "hour": 15,
-          "minute": 58,
-          "name": "i"
-        },
-        {
-          "hour": 15,
-          "minute": 59,
-          "name": "love"
-        },
-        {
-          "hour": 16,
-          "minute": 1,
-          "name": "banana"
+          "hour": 23,
+          "minute": 55,
+          "name": "antes!"
         }
       ]
     },
@@ -30,7 +20,7 @@
         {
           "hour": 0,
           "minute": 10,
-          "name": "foi!"
+          "name": "depois!"
         }
       ]
     },
