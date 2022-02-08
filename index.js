@@ -31,9 +31,13 @@ function pad(number, size) {
   return numberArray.join``
 }
 
+function getCurrentTimeByTimezone(timeZone) {
+  return new Date(new Date().toLocaleString('en-US', { timeZone }))
+}
+
 function getCurrentAppointments() {
   const days = routineDatabase.get('days')
-  const currentDay = new Date(new Date().toLocaleString('en-US', { timeZone: "America/Sao_Paulo" }))
+  const currentDay = getCurrentTimeByTimezone('America/Sao_Paulo')
   const currentDayInfo = days.find((dayInfo) => dayInfo.day == currentDay.getDay())
 
   return currentDayInfo.appointments.filter((appointmentInfo) => {
@@ -53,7 +57,7 @@ async function wait(time) {
 }
 
 function getLateAppointments(appointments) {
-  const currentDay = new Date(new Date().toLocaleString('en-US', { timeZone: "America/Sao_Paulo" }))
+  const currentDay = getCurrentTimeByTimezone('America/Sao_Paulo')
   return appointments.filter((appointmentInfo) => {
     const isSameHour = (currentDay.getHours() == appointmentInfo.hour)
     if (!isSameHour) return false
@@ -64,7 +68,7 @@ function getLateAppointments(appointments) {
 
 async function start() {
   const currentAppointments = getCurrentAppointments()
-  const currentDay = new Date(new Date().toLocaleString('en-US', { timeZone: "America/Sao_Paulo" }))
+  const currentDay = getCurrentTimeByTimezone('America/Sao_Paulo')
   cacheDatabase.set('day', currentDay.getDay())
   cacheDatabase.set('appointments', currentAppointments)
   logInfo(`Alarm started with ${currentAppointments.length} appointments!`)
